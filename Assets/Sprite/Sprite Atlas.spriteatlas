@@ -44,23 +44,14 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 21300000, guid: 8e7387769314dd9438f2740974ae32bf, type: 3}
-    - {fileID: 21300000, guid: 6452f4cfee7d8e34796eeb68deeadf7d, type: 3}
-    - {fileID: 21300000, guid: 99d9419e130a4f544bb937a80f7dcabe, type: 3}
-    - {fileID: 21300000, guid: 06a933ffeecca2b4e9051753a185efb8, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: be8632a6f340e0a449924de721565a18, type: 3}
-  - {fileID: 21300000, guid: 99d9419e130a4f544bb937a80f7dcabe, type: 3}
-  - {fileID: 21300000, guid: 6452f4cfee7d8e34796eeb68deeadf7d, type: 3}
-  - {fileID: 21300000, guid: 06a933ffeecca2b4e9051753a185efb8, type: 3}
+  - {fileID: 21300000, guid: 8e7387769314dd9438f2740974ae32bf, type: 3}
   m_PackedSpriteNamesToIndex:
-  - alarmClock
-  - clock_face
-  - clock
-  - clock_hand
+  - png-transparent-symbol-computer-icons-symbol-miscellaneous-angle-text-thumbnail
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0

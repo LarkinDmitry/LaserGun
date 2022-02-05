@@ -3,20 +3,27 @@ using UnityEngine;
 
 class Laser : MonoBehaviour
 {
-    // laser prefab
     public GameObject LinePrefab;
+
+    private LineRenderer laserLine;
 
     // list of start, reflection and finish points
     private List<Vector3> laserBreakpoints = new List<Vector3>();
 
-    // defalte laser range = 0
-    private float maxLaserRange;
+    // default laser range = 0
+    private float laserRange;
 
-    // defalte laser power = 0
+    // default max laser range = 100
+    private float maxLaserRange = 100;
+
+    // default laser power = 0
     private float laserPower;
 
-    // ray renderer
-    private LineRenderer laserLine;
+    // default laser power = 100
+    private float maxLaserPower = 100;
+
+    // forward offset
+    private float forwardOffset = 0.8f;
 
     private void Start()
     {
@@ -30,13 +37,13 @@ class Laser : MonoBehaviour
         if (laserBreakpoints.Count != 0) laserBreakpoints.Clear();
 
         // set start point with offset
-        Vector3 startLaserPoint = transform.position - transform.forward;
+        Vector3 startLaserPoint = transform.position + transform.forward * forwardOffset;
 
         // write start point
         laserBreakpoints.Add(startLaserPoint);
 
         // create new ray (recursive function)
-        BuildRays(startLaserPoint, -transform.forward, maxLaserRange, laserPower);
+        BuildRays(startLaserPoint, transform.forward, laserRange, laserPower);
 
         // draw laser line
         DrawLines();
@@ -44,19 +51,16 @@ class Laser : MonoBehaviour
 
     private void BuildRays(Vector3 startPosition, Vector3 direction, float laserRange, float power)
     {
-        RaycastHit hit;
-
-        // create ray
         Ray ray = new Ray(startPosition, direction);
 
         // intersection point calculation
-        bool intersect = Physics.Raycast(ray, out hit, laserRange);
+        bool intersect = Physics.Raycast(ray, out RaycastHit hit, laserRange);
         Vector3 hitPosition = intersect ? hit.point : startPosition + direction * laserRange;
 
         // add new intersect point or finish point
         laserBreakpoints.Add(hitPosition);
 
-        // calculation remainder laser lenth
+        // calculation remainder laser length
         float remaindLaserRange = laserRange - hit.distance;
 
         // calculation remainder power (in case of intersect)
@@ -81,25 +85,33 @@ class Laser : MonoBehaviour
     // draw laser line
     private void DrawLines()
     {
-        // set breackpoints count
+        // set breakpoints count
         laserLine.positionCount = laserBreakpoints.Count;
         // draw new laser line
         laserLine.SetPositions(laserBreakpoints.ToArray());
     }
 
+    // check correctness of input value
     public void SetLaserRange(float range)
     {
-        // chec length >= 0
-        maxLaserRange = range > 0 ? range : 0;
+        // length >= 0
+        laserRange = range > 0 ? range : 0;
+
+        // range <= maxLaserRange
+        laserRange = range < maxLaserRange ? range : maxLaserRange;
     }
 
+    // check correctness of input value
     public void SetLaserPower(float power)
     {
-        // chec power >= 0
+        // power >= 0
         laserPower = power > 0 ? power : 0;
+
+        // power <= maxLaserPower
+        laserPower = power < maxLaserPower ? power : maxLaserPower;
     }
 
-    public float GetLaserRange() => maxLaserRange;
+    public float GetLaserRange() => laserRange;
 
     public float GetLaserPower() => laserPower;
 }

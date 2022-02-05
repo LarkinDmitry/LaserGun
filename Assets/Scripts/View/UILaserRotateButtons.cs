@@ -45,14 +45,14 @@ class UILaserRotateButtons : MonoBehaviour, IRotator
         rotate = Vector3.left;
     }
 
-    // unpress button
+    // unpressed any button
     public void PointerUp()
     {
         buttonPressed = false;
         rotate = Vector3.zero;
     }
 
-    // send command to model 
+    // send command to rotate model 
     public void SetRotate(Vector3 rotate)
     {
         presenter.Rotate(rotate);

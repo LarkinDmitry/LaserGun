@@ -7,6 +7,17 @@ class UILaserPropertyFields : MonoBehaviour, ILaserProperty
     public InputField range;
     private LaserPropertyPresenter presenter;
 
+    private void Start()
+    {
+        // set input type - decimal number
+        power.contentType = InputField.ContentType.DecimalNumber;        
+        range.contentType = InputField.ContentType.DecimalNumber;
+        
+        // set character limit
+        power.characterLimit = 5;
+        range.characterLimit = 5;
+    }
+
     public void CreatePresenter(Gun model)
     {
         presenter = new LaserPropertyPresenter(this, model);
@@ -15,21 +26,15 @@ class UILaserPropertyFields : MonoBehaviour, ILaserProperty
     // read and send laser power value
     public void SetLaserPower()
     {
-        presenter.SetLaserPower(StringToFloat(power.text));
+        presenter.SetLaserPower(ValueConverter.StringToFloat(power.text));
     }
 
     // read and send laser range value
     public void SetLaserRange()
     {
-        presenter.SetLaserRange(StringToFloat(range.text));
+        presenter.SetLaserRange(ValueConverter.StringToFloat(range.text));
     }
-
-    // format text and convert string to float
-    private float StringToFloat(string s)
-    {
-        char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-        return float.Parse(s.Replace(".", separator.ToString()));
-    }
+    
 
     // write on UI laser power value
     public void ShowLaserPower(float value)

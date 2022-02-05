@@ -20,11 +20,6 @@ class Gun : MonoBehaviour
         laserBase = gunBase.GetComponent<Transform>();
         laserBarrel = gunBarrel.GetComponent<Transform>();
         myLaser = laserBarrel.GetComponent<Laser>();
-
-        // set defolt value
-        SetLaserRange(20f);
-        SetLaserPower(10f);
-        Rotate(Vector3.zero);
     }
 
     public void Rotate(Vector3 rotate)
