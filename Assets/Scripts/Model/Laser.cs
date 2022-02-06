@@ -94,21 +94,25 @@ class Laser : MonoBehaviour
     // check correctness of input value
     public void SetLaserRange(float range)
     {
-        // length >= 0
-        laserRange = range > 0 ? range : 0;
+        // range >= 0
+        if (range < 0) range = 0;
 
         // range <= maxLaserRange
-        laserRange = range < maxLaserRange ? range : maxLaserRange;
+        if (range > maxLaserRange) range = maxLaserRange;
+
+        laserRange = range;
     }
 
     // check correctness of input value
     public void SetLaserPower(float power)
     {
         // power >= 0
-        laserPower = power > 0 ? power : 0;
+        if (power < 0) power = 0;
 
         // power <= maxLaserPower
-        laserPower = power < maxLaserPower ? power : maxLaserPower;
+        if (power > maxLaserPower) power = maxLaserPower;
+
+        laserPower = power;
     }
 
     public float GetLaserRange() => laserRange;
