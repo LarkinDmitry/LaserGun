@@ -5,11 +5,9 @@ class LaserPropertyPresenter
 
     public LaserPropertyPresenter(ILaserProperty view, Gun model)
     {
-        // set link
         this.view = view;
         this.model = model;
 
-        // waiting for an event
         this.model.changedLaserPower += ShowLaserPower;
         this.model.changedLaserRange += ShowLaserRange;
     }

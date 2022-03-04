@@ -7,7 +7,6 @@ class RotatePresenter
 
     public RotatePresenter(IRotator view, Gun model)
     {
-        // set link
         this.view = view;
         this.model = model;
     }

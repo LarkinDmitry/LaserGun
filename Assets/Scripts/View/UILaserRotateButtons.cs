@@ -17,28 +17,25 @@ class UILaserRotateButtons : MonoBehaviour, IRotator
         if (buttonPressed) SetRotate(rotate * step);
     }
 
-    // pressing button up
+    // pressing button
     public void Up()
     {
         buttonPressed = true;
         rotate = Vector3.up;
     }
 
-    // pressing button down
     public void Down()
     {
         buttonPressed = true;
         rotate = Vector3.down;
     }
 
-    // pressing button right
     public void Right()
     {
         buttonPressed = true;
         rotate = Vector3.right;
     }
 
-    // pressing button left
     public void Left()
     {
         buttonPressed = true;
@@ -52,7 +49,6 @@ class UILaserRotateButtons : MonoBehaviour, IRotator
         rotate = Vector3.zero;
     }
 
-    // send command to rotate model 
     public void SetRotate(Vector3 rotate)
     {
         presenter.Rotate(rotate);

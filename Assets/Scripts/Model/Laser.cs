@@ -7,39 +7,29 @@ class Laser : MonoBehaviour
 
     private LineRenderer laserLine;
 
-    // list of start, reflection and finish points
     private List<Vector3> laserBreakpoints = new List<Vector3>();
 
-    // default laser range = 0
     private float laserRange;
 
-    // default max laser range = 100
     private float maxLaserRange = 100;
 
-    // default laser power = 0
     private float laserPower;
 
-    // default laser power = 100
     private float maxLaserPower = 100;
 
-    // forward offset
     private float forwardOffset = 0.8f;
 
     private void Start()
     {
-        // create prefab of laser ray
         laserLine = Instantiate(LinePrefab, Vector3.zero, Quaternion.identity).GetComponent<LineRenderer>();
     }
 
     private void Update()
     {
-        // clear ray list
         if (laserBreakpoints.Count != 0) laserBreakpoints.Clear();
 
-        // set start point with offset
         Vector3 startLaserPoint = transform.position + transform.forward * forwardOffset;
 
-        // write start point
         laserBreakpoints.Add(startLaserPoint);
 
         // create new ray (recursive function)
@@ -70,7 +60,6 @@ class Laser : MonoBehaviour
             // checking if it is a target
             if (hit.transform.gameObject.GetComponent<Target>() != null)
             {
-                // set new value
                 remainderPower -= hit.transform.gameObject.GetComponent<Target>().GetAbsorption();
             }
 
@@ -82,16 +71,12 @@ class Laser : MonoBehaviour
         }
     }
 
-    // draw laser line
     private void DrawLines()
     {
-        // set breakpoints count
         laserLine.positionCount = laserBreakpoints.Count;
-        // draw new laser line
         laserLine.SetPositions(laserBreakpoints.ToArray());
     }
 
-    // check correctness of input value
     public void SetLaserRange(float range)
     {
         // range >= 0
@@ -103,7 +88,6 @@ class Laser : MonoBehaviour
         laserRange = range;
     }
 
-    // check correctness of input value
     public void SetLaserPower(float power)
     {
         // power >= 0
