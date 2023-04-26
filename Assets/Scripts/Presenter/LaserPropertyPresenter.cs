@@ -1,7 +1,7 @@
 class LaserPropertyPresenter
 {
-    private ILaserProperty view;
-    private Gun model;
+    private readonly ILaserProperty view;
+    private readonly Gun model;
 
     public LaserPropertyPresenter(ILaserProperty view, Gun model)
     {
@@ -12,7 +12,6 @@ class LaserPropertyPresenter
         this.model.changedLaserRange += ShowLaserRange;
     }
 
-    // pass command to model
     public void SetLaserPower(float value)
     {
         model.SetLaserPower(value);
@@ -23,7 +22,6 @@ class LaserPropertyPresenter
         model.SetLaserRange(value);
     }
 
-    // pass command to view
     private void ShowLaserPower(float value)
     {
         view.ShowLaserPower(value);

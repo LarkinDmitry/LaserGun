@@ -4,30 +4,28 @@ class UILaserRotateButtons : MonoBehaviour, IRotator
 {
     private RotatePresenter presenter;
     private bool buttonPressed;
-    private Vector3 rotate;    
-    private float step = 0.05f; // sensitivity of rotate
+    private Vector3 rotate;
+    private readonly float sensitivity = 0.05f;
 
     public void CreatePresenter(Gun model)
     {
-        presenter = new RotatePresenter(this, model);
+        presenter = new RotatePresenter(model);
     }
     private void Update()
     {
-        // rotate while the button is pressed
-        if (buttonPressed) SetRotate(rotate * step);
+        if (buttonPressed) SetRotate(rotate * sensitivity);
     }
 
-    // pressing button
     public void Up()
     {
         buttonPressed = true;
-        rotate = Vector3.up;
+        rotate = Vector3.down;
     }
 
     public void Down()
     {
         buttonPressed = true;
-        rotate = Vector3.down;
+        rotate = Vector3.up;
     }
 
     public void Right()
@@ -42,7 +40,6 @@ class UILaserRotateButtons : MonoBehaviour, IRotator
         rotate = Vector3.left;
     }
 
-    // unpressed any button
     public void PointerUp()
     {
         buttonPressed = false;

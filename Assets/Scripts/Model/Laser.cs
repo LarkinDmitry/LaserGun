@@ -11,13 +11,13 @@ class Laser : MonoBehaviour
 
     private float laserRange;
 
-    private float maxLaserRange = 100;
+    private readonly float maxLaserRange = 100;
 
     private float laserPower;
 
-    private float maxLaserPower = 100;
+    private readonly float maxLaserPower = 100;
 
-    private float forwardOffset = 0.8f;
+    private readonly float forwardOffset = 0.8f;
 
     private void Start()
     {
@@ -32,38 +32,29 @@ class Laser : MonoBehaviour
 
         laserBreakpoints.Add(startLaserPoint);
 
-        // create new ray (recursive function)
         BuildRays(startLaserPoint, transform.forward, laserRange, laserPower);
-
-        // draw laser line
         DrawLines();
     }
 
     private void BuildRays(Vector3 startPosition, Vector3 direction, float laserRange, float power)
     {
-        Ray ray = new Ray(startPosition, direction);
+        Ray ray = new (startPosition, direction);
 
-        // intersection point calculation
         bool intersect = Physics.Raycast(ray, out RaycastHit hit, laserRange);
         Vector3 hitPosition = intersect ? hit.point : startPosition + direction * laserRange;
 
-        // add new intersect point or finish point
         laserBreakpoints.Add(hitPosition);
 
-        // calculation remainder laser length
         float remaindLaserRange = laserRange - hit.distance;
 
-        // calculation remainder power (in case of intersect)
         float remainderPower = power;
         if (intersect)
         {
-            // checking if it is a target
             if (hit.transform.gameObject.GetComponent<Target>() != null)
             {
                 remainderPower -= hit.transform.gameObject.GetComponent<Target>().GetAbsorption();
             }
 
-            // if there is still laser power, create new ray
             if (remainderPower > 0)
             {
                 BuildRays(hitPosition, Vector3.Reflect(direction, hit.normal), remaindLaserRange, remainderPower);
@@ -79,24 +70,12 @@ class Laser : MonoBehaviour
 
     public void SetLaserRange(float range)
     {
-        // range >= 0
-        if (range < 0) range = 0;
-
-        // range <= maxLaserRange
-        if (range > maxLaserRange) range = maxLaserRange;
-
-        laserRange = range;
+        laserRange = Mathf.Clamp(range, 0, maxLaserRange);
     }
 
     public void SetLaserPower(float power)
     {
-        // power >= 0
-        if (power < 0) power = 0;
-
-        // power <= maxLaserPower
-        if (power > maxLaserPower) power = maxLaserPower;
-
-        laserPower = power;
+        laserPower = Mathf.Clamp(power, 0, maxLaserPower);
     }
 
     public float GetLaserRange() => laserRange;

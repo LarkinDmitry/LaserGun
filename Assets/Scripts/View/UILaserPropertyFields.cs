@@ -29,8 +29,7 @@ class UILaserPropertyFields : MonoBehaviour, ILaserProperty
     public void SetLaserRange()
     {
         presenter.SetLaserRange(ValueConverter.StringToFloat(range.text));
-    }
-    
+    }    
 
     public void ShowLaserPower(float value)
     {

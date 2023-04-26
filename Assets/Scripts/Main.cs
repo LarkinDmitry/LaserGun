@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MainScript : MonoBehaviour
+public class Main : MonoBehaviour
 {
     public GameObject rotateButtonView;
     public GameObject laserPropertyView;
@@ -8,14 +8,12 @@ public class MainScript : MonoBehaviour
     
     private void Awake()
     {
-        // create presenters for views
         rotateButtonView.GetComponent<UILaserRotateButtons>().CreatePresenter(laserGunModel.GetComponent<Gun>());
         laserPropertyView.GetComponent<UILaserPropertyFields>().CreatePresenter(laserGunModel.GetComponent<Gun>());
     }
 
     private void Start()
     {
-        // set start value for example
         laserGunModel.GetComponent<Gun>().SetLaserRange(50f);
         laserGunModel.GetComponent<Gun>().SetLaserPower(25f);
         laserGunModel.GetComponent<Gun>().Rotate(Vector3.zero);
@@ -25,7 +23,7 @@ public class MainScript : MonoBehaviour
     // инспектора. "Земля" и сама лазерная пушка отражают луч без поглащения, т.к.
     // коэффицент поглащения имеют только объекты со скриптом Target
 
-    // Из текста задания следует, что сцена должна быть уже готовой. Это позволяет
+    // Лучше если сцена будет "уже готовой". Это позволяет
     // "запечь свет" для статических объектов, создать lightmap и увеличить
     // производителность за счет отрисовки меньшего колиества теней.
 
